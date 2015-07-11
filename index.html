@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>WaniKani Critical Items</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="container" id="main_container"></div>
+
+    <script type="text/jsx">
+      var CriticalItems = React.createClass({
+        getInitialState: function() {
+          return {
+            apiKey: ''
+          }
+        },
+
+        apiKeyChange: function(apiKey) {
+          this.setState({ apiKey: apiKey });
+        },
+
+        render: function() {
+          return (
+            <div>
+              <div className='row'>
+                <div className='col-md-6'>
+                  Logo
+                </div>
+                <div className='col-md-6'>
+                  <SearchBar apiKeyChange={this.apiKeyChange} />
+                </div>
+              </div>
+
+              <div className='row'>
+                <CriticalItemList apiKey={this.state.apiKey} />
+              </div>
+            </div>
+          )
+        }
+      });
+
+      var CriticalItemList = React.createClass({
+        render: function() {
+          if (this.props.apiKey == '') {
+            return (
+              <h3>Please enter your API key.</h3>
+            )
+          } else {
+            return (
+              <h3>{this.props.apiKey}</h3>
+            )
+          }
+        }
+      });
+
+      var SearchBar = React.createClass({
+        handleKeyDown: function(event) {
+          if (event.key === 'Enter') {
+            this.props.apiKeyChange(event.target.value);
+          }
+        },
+
+        render: function() {
+          return (
+            <input type='text' className='form-control' onKeyDown={this.handleKeyDown} />
+          )
+        }
+      });
+
+      element = React.createElement(CriticalItems, null);
+      React.render(element, document.getElementById('main_container'));
+    </script>
+
+  </body>
+</html>
