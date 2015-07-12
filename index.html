@@ -2,150 +2,16 @@
 <html lang="en">
   <head>
     <title>WaniKani Critical Items</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/application.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <div class="container" id="main_container"></div>
-
-    <script type="text/jsx">
-      var CriticalItems = React.createClass({
-        getInitialState: function() {
-          return {
-            apiKey: '',
-            criticalItems: [],
-            error: null
-          }
-        },
-
-        componentWillMount: function() {
-          $(document)
-            .ajaxStart(function () {
-              $('#loading').show();
-            })
-            .ajaxStop(function () {
-              $('#loading').hide();
-            });
-        },
-
-        apiKeyChange: function(apiKey) {
-          if (apiKey) {
-            jQuery.ajax({
-              url: 'https://www.wanikani.com/api/user/' + apiKey + '/critical-items/80',
-              cache: false,
-              dataType: 'jsonp',
-              success: function(data, textStatus, jqXHR) {
-                if (data.error) {
-                  this.setState({
-                    apiKey: apiKey,
-                    errorMessage: data.error.message
-                  });
-                } else {
-                  this.setState({
-                    apiKey: apiKey,
-                    errorMessage: null,
-                    criticalItems: data.requested_information
-                  });
-                }
-              }.bind(this),
-              error: function(jqXHR, textStatus, errorThrown) {
-                this.setState({
-                  errorMessage: "There was an error making the request to WaniKani. Check your API key and try again."
-                });
-              }.bind(this)
-            });
-          } else {
-            this.setState({
-              apiKey: '',
-              errorMessage: null
-            });
-          }
-        },
-
-        render: function() {
-          return (
-            <div>
-              <div className='row' id='header'>
-                <div className='col-md-6'>
-                  Logo
-                </div>
-                <div className='col-md-6'>
-                  <SearchBar apiKeyChange={this.apiKeyChange} />
-                </div>
-              </div>
-
-              <div className='row' id='main_content'>
-                <div id='loading'><i className='fa fa-refresh fa-spin'></i></div>
-                <CriticalItemList apiKey={this.state.apiKey} errorMessage={this.state.errorMessage} criticalItems={this.state.criticalItems} />
-              </div>
-            </div>
-          )
-        }
-      });
-
-      var CriticalItemList = React.createClass({
-        render: function() {
-          if (this.props.errorMessage) {
-            return (
-              <h3>There was an error: {this.props.errorMessage}</h3>
-            )
-          } else if (this.props.apiKey == '') {
-            return (
-              <h3>Please enter your API key.</h3>
-            )
-          } else {
-            var itemList = this.props.criticalItems.map(function(item) {
-              return (<ItemInformation {...item} />)
-            });
-
-            return (
-              <div>{itemList}</div>
-            )
-          }
-        }
-      });
-
-      var ItemInformation = React.createClass({
-        render: function() {
-          var characterDisplay;
-
-          if (this.props.character == null) {
-            characterDisplay = (<img src={this.props.image} />);
-          } else {
-            characterDisplay = this.props.character;
-          }
-
-          return (
-            <div className={'row ' + this.props.type}>
-              <div className='col-md-4'>{characterDisplay}</div>
-              <div className='col-md-4'>{this.props.meaning}</div>
-            </div>
-          )
-        }
-      })
-
-      var SearchBar = React.createClass({
-        handleKeyDown: function(event) {
-          if (event.key === 'Enter') {
-            this.props.apiKeyChange(event.target.value);
-          }
-        },
-
-        render: function() {
-          return (
-            <input type='text' className='form-control' onKeyDown={this.handleKeyDown} />
-          )
-        }
-      });
-
-      element = React.createElement(CriticalItems, null);
-      React.render(element, document.getElementById('main_container'));
-    </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="assets/application.js"></script>
   </body>
 </html>
