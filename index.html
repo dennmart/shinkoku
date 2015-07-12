@@ -16,7 +16,8 @@
         getInitialState: function() {
           return {
             apiKey: '',
-            criticalItems: []
+            criticalItems: [],
+            error: null
           }
         },
 
@@ -32,17 +33,37 @@
         // },
 
         apiKeyChange: function(apiKey) {
-          jQuery.ajax({
-            url: 'https://www.wanikani.com/api/user/' + apiKey + '/critical-items/80',
-            cache: false,
-            dataType: 'jsonp',
-            success: function(data, textStatus, jqXHR) {
-              this.setState({
-                apiKey: apiKey,
-                criticalItems: data.requested_information
-              });
-            }.bind(this)
-          });
+          if (apiKey) {
+            jQuery.ajax({
+              url: 'https://www.wanikani.com/api/user/' + apiKey + '/critical-items/80',
+              cache: false,
+              dataType: 'jsonp',
+              success: function(data, textStatus, jqXHR) {
+                if (data.error) {
+                  this.setState({
+                    apiKey: apiKey,
+                    errorMessage: data.error.message
+                  });
+                } else {
+                  this.setState({
+                    apiKey: apiKey,
+                    errorMessage: null,
+                    criticalItems: data.requested_information
+                  });
+                }
+              }.bind(this),
+              error: function(jqXHR, textStatus, errorThrown) {
+                this.setState({
+                  errorMessage: "There was an error making the request to WaniKani. Check your API key and try again."
+                });
+              }.bind(this)
+            });
+          } else {
+            this.setState({
+              apiKey: '',
+              errorMessage: null
+            });
+          }
         },
 
         render: function() {
@@ -58,7 +79,7 @@
               </div>
 
               <div className='row'>
-                <CriticalItemList apiKey={this.state.apiKey} criticalItems={this.state.criticalItems} />
+                <CriticalItemList apiKey={this.state.apiKey} errorMessage={this.state.errorMessage} criticalItems={this.state.criticalItems} />
               </div>
             </div>
           )
@@ -67,7 +88,11 @@
 
       var CriticalItemList = React.createClass({
         render: function() {
-          if (this.props.apiKey == '') {
+          if (this.props.errorMessage) {
+            return (
+              <h3>There was an error: {this.props.errorMessage}</h3>
+            )
+          } else if (this.props.apiKey == '') {
             return (
               <h3>Please enter your API key.</h3>
             )
