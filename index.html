@@ -5,7 +5,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
@@ -21,16 +23,15 @@
           }
         },
 
-        // componentWillMount: function() {
-        //   var $loading = $('#loading').hide();
-        //   $(document)
-        //     .ajaxStart(function () {
-        //       $loading.show();
-        //     })
-        //     .ajaxStop(function () {
-        //       $loading.hide();
-        //     });
-        // },
+        componentWillMount: function() {
+          $(document)
+            .ajaxStart(function () {
+              $('#loading').show();
+            })
+            .ajaxStop(function () {
+              $('#loading').hide();
+            });
+        },
 
         apiKeyChange: function(apiKey) {
           if (apiKey) {
@@ -69,7 +70,7 @@
         render: function() {
           return (
             <div>
-              <div className='row'>
+              <div className='row' id='header'>
                 <div className='col-md-6'>
                   Logo
                 </div>
@@ -78,7 +79,8 @@
                 </div>
               </div>
 
-              <div className='row'>
+              <div className='row' id='main_content'>
+                <div id='loading'><i className='fa fa-refresh fa-spin'></i></div>
                 <CriticalItemList apiKey={this.state.apiKey} errorMessage={this.state.errorMessage} criticalItems={this.state.criticalItems} />
               </div>
             </div>
