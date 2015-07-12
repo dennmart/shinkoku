@@ -100,19 +100,7 @@
             )
           } else {
             var itemList = this.props.criticalItems.map(function(item) {
-              var characterDisplay;
-
-              if (item.character == null) {
-                characterDisplay = (<img src={item.image} />);
-              } else {
-                characterDisplay = item.character;
-              }
-              return (
-                <div className={'row ' + item.type}>
-                  <div className='col-md-4'>{characterDisplay}</div>
-                  <div className='col-md-4'>{item.meaning}</div>
-                </div>
-              )
+              return (<ItemInformation {...item} />)
             });
 
             return (
@@ -121,6 +109,25 @@
           }
         }
       });
+
+      var ItemInformation = React.createClass({
+        render: function() {
+          var characterDisplay;
+
+          if (this.props.character == null) {
+            characterDisplay = (<img src={this.props.image} />);
+          } else {
+            characterDisplay = this.props.character;
+          }
+
+          return (
+            <div className={'row ' + this.props.type}>
+              <div className='col-md-4'>{characterDisplay}</div>
+              <div className='col-md-4'>{this.props.meaning}</div>
+            </div>
+          )
+        }
+      })
 
       var SearchBar = React.createClass({
         handleKeyDown: function(event) {
