@@ -15,12 +15,34 @@
       var CriticalItems = React.createClass({
         getInitialState: function() {
           return {
-            apiKey: ''
+            apiKey: '',
+            criticalItems: []
           }
         },
 
+        // componentWillMount: function() {
+        //   var $loading = $('#loading').hide();
+        //   $(document)
+        //     .ajaxStart(function () {
+        //       $loading.show();
+        //     })
+        //     .ajaxStop(function () {
+        //       $loading.hide();
+        //     });
+        // },
+
         apiKeyChange: function(apiKey) {
-          this.setState({ apiKey: apiKey });
+          jQuery.ajax({
+            url: 'https://www.wanikani.com/api/user/' + apiKey + '/critical-items/80',
+            cache: false,
+            dataType: 'jsonp',
+            success: function(data, textStatus, jqXHR) {
+              this.setState({
+                apiKey: apiKey,
+                criticalItems: data.requested_information
+              });
+            }.bind(this)
+          });
         },
 
         render: function() {
@@ -36,7 +58,7 @@
               </div>
 
               <div className='row'>
-                <CriticalItemList apiKey={this.state.apiKey} />
+                <CriticalItemList apiKey={this.state.apiKey} criticalItems={this.state.criticalItems} />
               </div>
             </div>
           )
@@ -50,8 +72,24 @@
               <h3>Please enter your API key.</h3>
             )
           } else {
+            var itemList = this.props.criticalItems.map(function(item) {
+              var characterDisplay;
+
+              if (item.character == null) {
+                characterDisplay = (<img src={item.image} />);
+              } else {
+                characterDisplay = item.character;
+              }
+              return (
+                <div className={'row ' + item.type}>
+                  <div className='col-md-4'>{characterDisplay}</div>
+                  <div className='col-md-4'>{item.meaning}</div>
+                </div>
+              )
+            });
+
             return (
-              <h3>{this.props.apiKey}</h3>
+              <div>{itemList}</div>
             )
           }
         }
