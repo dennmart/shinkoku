@@ -17,7 +17,7 @@ module.exports = React.createClass({
       });
 
       return (
-        <div>{itemList}</div>
+        <div className='row item'>{itemList}</div>
       )
     }
   }

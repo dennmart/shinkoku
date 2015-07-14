@@ -62,6 +62,9 @@ module.exports = React.createClass({
           <div className='col-md-6'>
             Logo
           </div>
+        </div>
+
+        <div className='row' id='search'>
           <div className='col-md-6'>
             <SearchBar apiKeyChange={this.apiKeyChange} />
           </div>

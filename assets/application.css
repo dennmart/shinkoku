@@ -23,3 +23,41 @@ html, body {
 #loading i {
   font-size: 150px;
 }
+
+.item {
+  color: #FFF;
+  text-align: center;
+}
+
+.item .character {
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.item .reading {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.item img {
+  height: 60px;
+  width: 60px;
+}
+
+.radical {
+  padding: 20px;
+  background-color: #0093dd;
+  min-height: 200px;
+}
+
+.kanji {
+  padding: 20px;
+  background-color: #dd0093;
+  min-height: 200px;
+}
+
+.vocabulary {
+  padding: 20px;
+  background-color: #9300dd;
+  min-height: 200px;
+}
