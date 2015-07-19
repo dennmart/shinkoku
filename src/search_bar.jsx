@@ -9,7 +9,11 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <input type='text' className='form-control' onKeyDown={this.handleKeyDown} />
+      <input
+        type='text'
+        className='form-control'
+        placeholder='Please enter your WaniKani API key'
+        onKeyDown={this.handleKeyDown} />
     )
   }
 });

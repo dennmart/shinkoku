@@ -2,6 +2,14 @@ html, body {
   min-height: 100%;
 }
 
+body {
+  background-color: #F0F8FF;
+}
+
+.logo {
+  padding: 20px;
+}
+
 #main_content {
   position: relative;
   display: block;
@@ -18,6 +26,8 @@ html, body {
   z-index: 10;
   text-align: center;
   vertical-align: bottom;
+  background-color: #F0F8FF;
+  margin-top: 20px;
 }
 
 #loading i {
@@ -28,6 +38,11 @@ html, body {
   color: #FFF;
   text-align: center;
   padding: 10px;
+}
+
+.item-container {
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .item .character {

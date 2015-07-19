@@ -30,16 +30,16 @@ module.exports = React.createClass({
     }
 
     return (
-      <div className={this.props.type}>
+      <div className={'item-container ' + this.props.type}>
         <div className='character'>{characterDisplay}</div>
-        <div className='meaning'>{this.props.meaning}</div>
+        <div className='meaning'>{this.props.meaning.replace('-', ' ')}</div>
       </div>
     )
   },
 
   kanjiInfo: function() {
     return (
-      <div className={this.props.type}>
+      <div className={'item-container ' + this.props.type}>
         <div className='character'>{this.props.character}</div>
         <div className='reading'>{this.props[this.props.important_reading]}</div>
         <div className='meaning'>{this.props.meaning}</div>
@@ -49,7 +49,7 @@ module.exports = React.createClass({
 
   vocabularyInfo: function() {
     return (
-      <div className={this.props.type}>
+      <div className={'item-container ' + this.props.type}>
         <div className='character'>{this.props.character}</div>
         <div className='reading'>{this.props.kana}</div>
         <div className='meaning'>{this.props.meaning}</div>

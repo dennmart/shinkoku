@@ -58,14 +58,8 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <div className='row' id='header'>
-          <div className='col-md-6'>
-            Logo
-          </div>
-        </div>
-
         <div className='row' id='search'>
-          <div className='col-md-6'>
+          <div className='col-md-4 col-md-offset-4'>
             <SearchBar apiKeyChange={this.apiKeyChange} />
           </div>
         </div>
