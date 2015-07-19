@@ -27,6 +27,7 @@ html, body {
 .item {
   color: #FFF;
   text-align: center;
+  padding: 10px;
 }
 
 .item .character {

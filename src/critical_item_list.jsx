@@ -12,12 +12,12 @@ module.exports = React.createClass({
         <h3>Please enter your API key.</h3>
       )
     } else {
-      var itemList = this.props.criticalItems.map(function(item) {
-        return (<ItemInformation {...item} />)
+      var itemList = this.props.criticalItems.map(function(item, index) {
+        return (<ItemInformation key={index} {...item} />)
       });
 
       return (
-        <div className='row item'>{itemList}</div>
+        <div className='row'>{itemList}</div>
       )
     }
   }

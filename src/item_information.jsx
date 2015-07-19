@@ -2,7 +2,11 @@ var React = require('react');
 
 module.exports = React.createClass({
   render: function() {
-    return this.buildItem();
+    return (
+      <div className='col-md-4 item'>
+        {this.buildItem()}
+      </div>
+    )
   },
 
   buildItem: function() {
@@ -26,7 +30,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <div className={'col-md-4 ' + this.props.type}>
+      <div className={this.props.type}>
         <div className='character'>{characterDisplay}</div>
         <div className='meaning'>{this.props.meaning}</div>
       </div>
@@ -35,7 +39,7 @@ module.exports = React.createClass({
 
   kanjiInfo: function() {
     return (
-      <div className={'col-md-4 ' + this.props.type}>
+      <div className={this.props.type}>
         <div className='character'>{this.props.character}</div>
         <div className='reading'>{this.props[this.props.important_reading]}</div>
         <div className='meaning'>{this.props.meaning}</div>
@@ -45,7 +49,7 @@ module.exports = React.createClass({
 
   vocabularyInfo: function() {
     return (
-      <div className={'col-md-4 ' + this.props.type}>
+      <div className={this.props.type}>
         <div className='character'>{this.props.character}</div>
         <div className='reading'>{this.props.kana}</div>
         <div className='meaning'>{this.props.meaning}</div>
