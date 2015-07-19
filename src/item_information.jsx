@@ -12,7 +12,7 @@ module.exports = React.createClass({
       case 'kanji':
         return this.kanjiInfo();
       case 'vocabulary':
-        return this.vocabularyInfo;
+        return this.vocabularyInfo();
     };
   },
 
