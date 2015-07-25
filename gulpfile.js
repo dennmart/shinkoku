@@ -65,9 +65,9 @@ gulp.task('serve', function(done) {
       livereload: {
         enable: true,
         filter: function(filePath, cb) {
-          if(/main.js/.test(filePath)) {
+          if(/application.js/.test(filePath)) {
             cb(true)
-          } else if(/style.css/.test(filePath)){
+          } else if(/application.css/.test(filePath)){
             cb(true)
           }
         }
