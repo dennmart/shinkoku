@@ -1,4 +1,5 @@
 var React = require('react');
+var capitalize = require('underscore.string/capitalize');
 
 module.exports = React.createClass({
   render: function() {
@@ -32,7 +33,7 @@ module.exports = React.createClass({
     return (
       <div className={'item-container ' + this.props.type}>
         <div className='character'>{characterDisplay}</div>
-        <div className='meaning'>{this.props.meaning.replace('-', ' ')}</div>
+        <div className='meaning'>{capitalize(this.props.meaning.replace('-', ' '))}</div>
       </div>
     )
   },
@@ -42,7 +43,7 @@ module.exports = React.createClass({
       <div className={'item-container ' + this.props.type}>
         <div className='character'>{this.props.character}</div>
         <div className='reading'>{this.props[this.props.important_reading]}</div>
-        <div className='meaning'>{this.props.meaning}</div>
+        <div className='meaning'>{capitalize(this.props.meaning)}</div>
       </div>
     )
   },
@@ -52,7 +53,7 @@ module.exports = React.createClass({
       <div className={'item-container ' + this.props.type}>
         <div className='character'>{this.props.character}</div>
         <div className='reading'>{this.props.kana}</div>
-        <div className='meaning'>{this.props.meaning}</div>
+        <div className='meaning'>{capitalize(this.props.meaning)}</div>
       </div>
     )
   }
