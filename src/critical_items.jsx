@@ -1,4 +1,5 @@
 var React = require('react');
+var $ = require('jquery');
 var SearchBar = require('./search_bar');
 var CriticalItemList = require('./critical_item_list');
 
@@ -24,7 +25,7 @@ module.exports = React.createClass({
 
   apiKeyChange: function(apiKey) {
     if (apiKey) {
-      jQuery.ajax({
+      $.ajax({
         url: 'https://www.wanikani.com/api/user/' + apiKey + '/critical-items/80',
         cache: false,
         dataType: 'jsonp',
