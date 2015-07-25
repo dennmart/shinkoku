@@ -7,7 +7,8 @@ module.exports = React.createClass({
     return {
       apiKey: '',
       criticalItems: [],
-      error: null
+      error: null,
+      filterTypes: []
     }
   },
 
@@ -55,7 +56,50 @@ module.exports = React.createClass({
     }
   },
 
+  handleFilterChange: function(event) {
+    var filters = this.state.filterTypes.slice(0);
+
+    if (event.target.checked) {
+      filters.push(event.target.value);
+    } else {
+      var filterIndex = filters.indexOf(event.target.value);
+      filters.splice(filterIndex, 1);
+    }
+    this.setState({ filterTypes: filters });
+  },
+
+  clearFilters: function() {
+    this.setState({ filterTypes: [] });
+  },
+
+  isFilteredBy: function(type) {
+    return this.state.filterTypes.indexOf(type) > -1
+  },
+
   render: function() {
+    if (this.state.criticalItems.length > 0) {
+      var filterTypeOptions = <div className='row filter-types'>
+        <div className='col-md-12 text-center'>
+          <div className='title'>Filter by:</div>
+          <div className='option'>
+            <input type='checkbox' value='radical' checked={this.isFilteredBy('radical')} onChange={this.handleFilterChange} /> Radicals
+          </div>
+          <div className='option'>
+            <input type='checkbox' value='kanji' checked={this.isFilteredBy('kanji')} onChange={this.handleFilterChange} /> Kanji
+          </div>
+          <div className='option'>
+            <input type='checkbox' value='vocabulary' checked={this.isFilteredBy('vocabulary')} onChange={this.handleFilterChange} /> Vocabulary
+          </div>
+        </div>
+      </div>;
+    }
+
+    if (this.state.filterTypes.length > 0) {
+      var clearFilterLink = <div className='col-md-12 text-center'>
+        <a onClick={this.clearFilters}>Clear Filters</a>
+      </div>
+    }
+
     return (
       <div>
         <div className='row' id='search'>
@@ -66,7 +110,15 @@ module.exports = React.createClass({
 
         <div className='row' id='main_content'>
           <div id='loading'><i className='fa fa-refresh fa-spin'></i></div>
-          <CriticalItemList apiKey={this.state.apiKey} errorMessage={this.state.errorMessage} criticalItems={this.state.criticalItems} />
+          {filterTypeOptions}
+          <div className='row clear-filters'>
+            {clearFilterLink}
+          </div>
+          <CriticalItemList
+            apiKey={this.state.apiKey}
+            errorMessage={this.state.errorMessage}
+            criticalItems={this.state.criticalItems}
+            filterTypes={this.state.filterTypes} />
         </div>
       </div>
     )

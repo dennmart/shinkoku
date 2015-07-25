@@ -77,3 +77,22 @@ body {
   background-color: #9300dd;
   min-height: 200px;
 }
+
+.filter-types {
+  padding: 5px;
+  font-size: 20px;
+}
+
+.filter-types .title {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.filter-types .option {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.clear-filters {
+  min-height: 20px;
+}

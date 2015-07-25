@@ -12,8 +12,12 @@ module.exports = React.createClass({
         <h3>Please enter your API key.</h3>
       )
     } else {
+      var filterTypes = this.props.filterTypes;
+
       var itemList = this.props.criticalItems.map(function(item, index) {
-        return (<ItemInformation key={index} {...item} />)
+        if (filterTypes.length == 0 || filterTypes.indexOf(item.type) > -1) {
+          return (<ItemInformation key={index} {...item} />);
+        }
       });
 
       return (
