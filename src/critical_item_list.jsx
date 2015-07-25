@@ -1,4 +1,5 @@
 var React = require('react');
+var _ = require('underscore');
 var ItemInformation = require('./item_information');
 
 module.exports = React.createClass({
@@ -15,7 +16,7 @@ module.exports = React.createClass({
       var filterTypes = this.props.filterTypes;
 
       var itemList = this.props.criticalItems.map(function(item, index) {
-        if (filterTypes.length == 0 || filterTypes.indexOf(item.type) > -1) {
+        if (filterTypes.length == 0 || _.contains(filterTypes, item.type)) {
           return (<ItemInformation key={index} {...item} />);
         }
       });

@@ -1,5 +1,6 @@
 var React = require('react');
 var $ = require('jquery');
+var _ = require('underscore');
 var SearchBar = require('./search_bar');
 var CriticalItemList = require('./critical_item_list');
 
@@ -58,13 +59,12 @@ module.exports = React.createClass({
   },
 
   handleFilterChange: function(event) {
-    var filters = this.state.filterTypes.slice(0);
+    var filters = _.clone(this.state.filterTypes);
 
     if (event.target.checked) {
       filters.push(event.target.value);
     } else {
-      var filterIndex = filters.indexOf(event.target.value);
-      filters.splice(filterIndex, 1);
+      filters = _.reject(filters, function(filter) { return filter == event.target.value });
     }
     this.setState({ filterTypes: filters });
   },
@@ -74,7 +74,7 @@ module.exports = React.createClass({
   },
 
   isFilteredBy: function(type) {
-    return this.state.filterTypes.indexOf(type) > -1
+    return _.contains(this.state.filterTypes, type);
   },
 
   render: function() {
