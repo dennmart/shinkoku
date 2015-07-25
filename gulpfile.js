@@ -9,8 +9,6 @@ var server = require('gulp-server-livereload');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
-var uglify = require('gulp-uglify');
-var buffer = require('vinyl-buffer');
 
 var notify = function(error) {
   var message = 'In: ';
@@ -49,8 +47,6 @@ function bundle() {
     .bundle()
     .on('error', notify)
     .pipe(source('application.js'))
-    .pipe(buffer())
-    .pipe(uglify())
     .pipe(gulp.dest('./assets'))
 }
 bundler.on('update', bundle)
