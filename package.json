@@ -1,13 +1,16 @@
 {
-  "name": "wanikani-critical",
+  "name": "shinkoku",
   "version": "0.0.1",
   "description": "Fetch and display your critical items from WaniKani",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "author": {
+    "name": "Dennis Martinez",
+    "email": "dennis@dennmart.com"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dennmart/shinkoku.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "browserify": "^10.2.6",
     "gulp": "^3.9.0",
