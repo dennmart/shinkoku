@@ -1,18 +1,23 @@
 html, body {
-  min-height: 100%; }
+  min-height: 100%;
+}
 
 html {
-  overflow-y: scroll; }
+  overflow-y: scroll;
+}
 
 body {
-  background-color: #F0F8FF; }
+  background-color: #F0F8FF;
+}
 
 .logo {
-  padding: 20px; }
+  padding: 20px;
+}
 
 #main_content {
   position: relative;
-  display: block; }
+  display: block;
+}
 
 #loading {
   width: 100%;
@@ -26,52 +31,73 @@ body {
   text-align: center;
   vertical-align: bottom;
   background-color: #F0F8FF;
-  margin-top: 20px; }
-  #loading i {
-    font-size: 150px; }
+  margin-top: 20px;
+
+  i {
+    font-size: 150px;
+  }
+}
 
 .item {
   color: #FFF;
   text-align: center;
-  padding: 10px; }
-  .item .character {
+  padding: 10px;
+
+  .character {
     font-size: 60px;
-    font-weight: bold; }
-  .item .reading {
+    font-weight: bold;
+  }
+
+  .reading {
     font-size: 20px;
-    font-weight: bold; }
-  .item img {
+    font-weight: bold;
+  }
+
+  img {
     height: 60px;
-    width: 60px; }
+    width: 60px;
+  }
+}
 
 .item-container {
   -moz-border-radius: 10px;
-  border-radius: 10px; }
+  border-radius: 10px;
+}
 
 .radical {
   padding: 20px;
   background-color: #0093dd;
-  min-height: 200px; }
+  min-height: 200px;
+}
 
 .kanji {
   padding: 20px;
   background-color: #dd0093;
-  min-height: 200px; }
+  min-height: 200px;
+}
 
 .vocabulary {
   padding: 20px;
   background-color: #9300dd;
-  min-height: 200px; }
+  min-height: 200px;
+}
 
 .filter-types {
   padding: 5px;
-  font-size: 20px; }
-  .filter-types .title {
+  font-size: 20px;
+
+  .title {
     display: inline-block;
-    font-weight: bold; }
-  .filter-types .option {
+    font-weight: bold;
+  }
+
+  .option {
     display: inline-block;
-    margin: 0 5px; }
+    margin: 0 5px;
+
+  }
+}
 
 .clear-filters {
-  min-height: 20px; }
+  min-height: 20px;
+}
