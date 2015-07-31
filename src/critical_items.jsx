@@ -2,6 +2,7 @@ var React = require('react');
 var $ = require('jquery');
 var _ = require('underscore');
 var SearchBar = require('./search_bar');
+var MainContent = require('./main_content');
 var CriticalItemList = require('./critical_item_list');
 
 module.exports = React.createClass({
@@ -9,7 +10,7 @@ module.exports = React.createClass({
     return {
       apiKey: '',
       criticalItems: [],
-      error: null
+      errorMessage: null
     }
   },
 
@@ -58,6 +59,16 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    if (this.state.errorMessage) {
+      var content = <MainContent errorMessage={this.state.errorMessage} />;
+    } else if (this.state.apiKey == '') {
+      var content = <MainContent />;
+    } else {
+      var content = <CriticalItemList
+        criticalItems={this.state.criticalItems}
+        filterTypes={this.state.filterTypes} />;
+    }
+
     return (
       <div>
         <div className='row' id='search'>
@@ -68,11 +79,7 @@ module.exports = React.createClass({
 
         <div className='container' id='main_content'>
           <div id='loading'><i className='fa fa-refresh fa-spin'></i></div>
-          <CriticalItemList
-            apiKey={this.state.apiKey}
-            errorMessage={this.state.errorMessage}
-            criticalItems={this.state.criticalItems}
-            filterTypes={this.state.filterTypes} />
+          {content}
         </div>
       </div>
     )
