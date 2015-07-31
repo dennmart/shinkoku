@@ -3,6 +3,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var SearchBar = require('./search_bar');
 var CriticalItemList = require('./critical_item_list');
+var CriticalItemFilters = require('./critical_item_filters');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -58,14 +59,7 @@ module.exports = React.createClass({
     }
   },
 
-  handleFilterChange: function(event) {
-    var filters = _.clone(this.state.filterTypes);
-
-    if (event.target.checked) {
-      filters.push(event.target.value);
-    } else {
-      filters = _.reject(filters, function(filter) { return filter == event.target.value });
-    }
+  handleFilterChange: function(filters) {
     this.setState({ filterTypes: filters });
   },
 
@@ -73,32 +67,12 @@ module.exports = React.createClass({
     this.setState({ filterTypes: [] });
   },
 
-  isFilteredBy: function(type) {
-    return _.contains(this.state.filterTypes, type);
-  },
-
   render: function() {
     if (this.state.criticalItems.length > 0) {
-      var filterTypeOptions = <div className='row filter-types'>
-        <div className='col-md-12 text-center'>
-          <div className='title'>Filter by:</div>
-          <div className='option'>
-            <input type='checkbox' value='radical' checked={this.isFilteredBy('radical')} onChange={this.handleFilterChange} /> Radicals
-          </div>
-          <div className='option'>
-            <input type='checkbox' value='kanji' checked={this.isFilteredBy('kanji')} onChange={this.handleFilterChange} /> Kanji
-          </div>
-          <div className='option'>
-            <input type='checkbox' value='vocabulary' checked={this.isFilteredBy('vocabulary')} onChange={this.handleFilterChange} /> Vocabulary
-          </div>
-        </div>
-      </div>;
-    }
-
-    if (this.state.filterTypes.length > 0) {
-      var clearFilterLink = <div className='col-md-12 text-center'>
-        <a onClick={this.clearFilters}>Clear Filters</a>
-      </div>
+      var filterTypeOptions = <CriticalItemFilters
+        filterTypes={this.state.filterTypes}
+        handleFilterChange={this.handleFilterChange}
+        handleClearFilters={this.clearFilters} />;
     }
 
     return (
@@ -109,13 +83,9 @@ module.exports = React.createClass({
           </div>
         </div>
 
-
         <div className='container' id='main_content'>
           <div id='loading'><i className='fa fa-refresh fa-spin'></i></div>
           {filterTypeOptions}
-          <div className='row clear-filters'>
-            {clearFilterLink}
-          </div>
           <CriticalItemList
             apiKey={this.state.apiKey}
             errorMessage={this.state.errorMessage}
