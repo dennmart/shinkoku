@@ -109,7 +109,8 @@ module.exports = React.createClass({
           </div>
         </div>
 
-        <div className='row' id='main_content'>
+
+        <div className='container' id='main_content'>
           <div id='loading'><i className='fa fa-refresh fa-spin'></i></div>
           {filterTypeOptions}
           <div className='row clear-filters'>

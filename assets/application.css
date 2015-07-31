@@ -25,9 +25,9 @@ body {
   z-index: 10;
   text-align: center;
   vertical-align: bottom;
-  background-color: #F0F8FF;
-  margin-top: 20px; }
+  background-color: #F0F8FF; }
   #loading i {
+    margin: 20px auto 0;
     font-size: 150px; }
 
 .item {
