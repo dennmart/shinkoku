@@ -3,15 +3,13 @@ var $ = require('jquery');
 var _ = require('underscore');
 var SearchBar = require('./search_bar');
 var CriticalItemList = require('./critical_item_list');
-var CriticalItemFilters = require('./critical_item_filters');
 
 module.exports = React.createClass({
   getInitialState: function() {
     return {
       apiKey: '',
       criticalItems: [],
-      error: null,
-      filterTypes: []
+      error: null
     }
   },
 
@@ -59,22 +57,7 @@ module.exports = React.createClass({
     }
   },
 
-  handleFilterChange: function(filters) {
-    this.setState({ filterTypes: filters });
-  },
-
-  clearFilters: function() {
-    this.setState({ filterTypes: [] });
-  },
-
   render: function() {
-    if (this.state.criticalItems.length > 0) {
-      var filterTypeOptions = <CriticalItemFilters
-        filterTypes={this.state.filterTypes}
-        handleFilterChange={this.handleFilterChange}
-        handleClearFilters={this.clearFilters} />;
-    }
-
     return (
       <div>
         <div className='row' id='search'>
@@ -85,7 +68,6 @@ module.exports = React.createClass({
 
         <div className='container' id='main_content'>
           <div id='loading'><i className='fa fa-refresh fa-spin'></i></div>
-          {filterTypeOptions}
           <CriticalItemList
             apiKey={this.state.apiKey}
             errorMessage={this.state.errorMessage}
