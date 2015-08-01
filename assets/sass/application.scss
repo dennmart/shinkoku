@@ -8,6 +8,11 @@ html {
 
 body {
   background-color: #F0F8FF;
+  font-family: "Lato",sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
 }
 
 .logo {
@@ -17,6 +22,11 @@ body {
 #main_content {
   position: relative;
   display: block;
+
+  .wanikani-error-msg {
+    padding: 10px;
+    margin-top: 25px;
+  }
 }
 
 #loading {
@@ -46,6 +56,7 @@ body {
   .character {
     font-size: 60px;
     font-weight: bold;
+    font-family: "Meiryo","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","メイリオ","Osaka","MS PGothic","ＭＳ Ｐゴシック",sans-serif;
   }
 
   .reading {
@@ -84,7 +95,7 @@ body {
 
 .filter-types {
   padding: 5px;
-  font-size: 20px;
+  font-size: 18px;
 
   .title {
     display: inline-block;

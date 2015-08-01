@@ -56,10 +56,8 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    if (this.state.errorMessage) {
+    if (this.state.errorMessage || this.state.apiKey == '') {
       var content = <MainContent errorMessage={this.state.errorMessage} />;
-    } else if (this.state.apiKey == '') {
-      var content = <MainContent />;
     } else {
       var content = <CriticalItemList
         criticalItems={this.state.criticalItems}
@@ -68,7 +66,7 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <div className='row' id='search'>
+        <div className='container' id='search'>
           <div className='col-md-12 text-center'>
             <SearchBar apiKeyChange={this.apiKeyChange} />
           </div>
