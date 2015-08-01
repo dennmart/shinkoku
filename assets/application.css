@@ -17,7 +17,8 @@ h1, h2, h3, h4, h5, h6 {
 
 #main_content {
   position: relative;
-  display: block; }
+  display: block;
+  font-size: 1.15em; }
   #main_content .wanikani-error-msg {
     padding: 10px;
     margin-top: 25px; }

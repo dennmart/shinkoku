@@ -7,6 +7,10 @@ module.exports = React.createClass({
     };
   },
 
+  componentDidMount: function() {
+    React.findDOMNode(this.refs.searchInput).focus();
+  },
+
   isValidApiKey: function(apiKey) {
     regExp = /^[a-z0-9]{32}$/;
     return regExp.test(apiKey);
@@ -32,6 +36,7 @@ module.exports = React.createClass({
     return (
       <form id='search' className='form-inline' onSubmit={this.handleOnSubmit}>
         <input
+          ref='searchInput'
           type='text'
           className='form-control'
           placeholder='Please enter your WaniKani API key'

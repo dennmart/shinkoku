@@ -10,7 +10,11 @@ module.exports = React.createClass({
     } else {
       var content = <div>
         <h1>Shinkoku</h1>
-        <p>Quickly check which WaniKani radicals, kanji or vocabulary you're having a bit of difficulty with.</p>
+        <p>
+          Quickly check which WaniKani radicals, kanji or vocabulary you're having a bit of difficulty with.
+          <br />
+          It will return all items that you have answered correctly 80% of the times or less.
+        </p>
         <p>To begin, just enter your <a href='https://www.wanikani.com/api' target='_blank'>WaniKani API Key</a> above.</p>
       </div>;
     }
