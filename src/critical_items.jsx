@@ -51,10 +51,7 @@ module.exports = React.createClass({
         }.bind(this)
       });
     } else {
-      this.setState({
-        apiKey: '',
-        errorMessage: null
-      });
+      this.replaceState(this.getInitialState());
     }
   },
 
