@@ -101,3 +101,10 @@ body {
 .clear-filters {
   min-height: 20px;
 }
+
+#search {
+  input {
+    width: 300px;
+    margin-right: 10px;
+  }
+}
