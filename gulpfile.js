@@ -9,6 +9,9 @@ var server = require('gulp-server-livereload');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
+var uglify = require('gulp-uglify');
+var uglifycss = require('gulp-uglifycss');
+var buffer = require('vinyl-buffer');
 
 var notify = function(error) {
   var message = 'In: ';
@@ -32,7 +35,7 @@ var notify = function(error) {
   notifier.notify({title: title, message: message});
 };
 
-var bundler = watchify(browserify({
+var bundler = browserify({
   entries: ['./src/app.jsx'],
   transform: [reactify],
   extensions: ['.jsx'],
@@ -40,10 +43,10 @@ var bundler = watchify(browserify({
   cache: {},
   packageCache: {},
   fullPaths: true
-}));
+});
 
 function bundle() {
-  return bundler
+  return watchify(bundler)
     .bundle()
     .on('error', notify)
     .pipe(source('application.js'))
@@ -83,4 +86,25 @@ gulp.task('default', ['build', 'serve', 'sass', 'watch']);
 
 gulp.task('watch', function () {
   gulp.watch('./assets/sass/**/*.scss', ['sass']);
+});
+
+gulp.task('distribute', function() {
+  bundler
+    .bundle()
+    .pipe(source('application.js'))
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist/assets'));
+
+  gulp.src('./assets/sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(concat('application.css'))
+    .pipe(uglifycss())
+    .pipe(gulp.dest('./dist/assets'));
+
+  gulp.src('./index.html')
+    .pipe(gulp.dest('./dist'));
+
+  gulp.src('./assets/wanikani-shinkoku.png')
+    .pipe(gulp.dest('./dist/assets'));
 });

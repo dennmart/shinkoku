@@ -18,6 +18,8 @@
     "gulp-react": "^3.0.1",
     "gulp-sass": "^2.0.4",
     "gulp-server-livereload": "^1.4.0",
+    "gulp-uglify": "^1.2.0",
+    "gulp-uglifycss": "^1.0.4",
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.3",
     "jquery": "^2.1.4",
@@ -26,6 +28,7 @@
     "reactify": "^1.1.1",
     "underscore": "^1.8.3",
     "underscore.string": "^3.1.1",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.3"
   }
