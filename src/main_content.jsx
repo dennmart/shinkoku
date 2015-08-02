@@ -11,9 +11,9 @@ module.exports = React.createClass({
       var content = <div>
         <h1>Shinkoku</h1>
         <p>
-          Quickly check which WaniKani radicals, kanji or vocabulary you're having a bit of difficulty with.
+          Quickly check which WaniKani radicals, kanji or vocabulary items you're having difficulty with.
           <br />
-          It will return all items that you have answered correctly 80% of the times or less.
+          It will return all items that you have answered correctly less than 80% of the times it's appeared in your reviews.
         </p>
         <p>To begin, just enter your <a href='https://www.wanikani.com/api' target='_blank'>WaniKani API Key</a> above.</p>
       </div>;

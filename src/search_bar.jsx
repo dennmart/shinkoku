@@ -42,6 +42,7 @@ module.exports = React.createClass({
           placeholder='Please enter your WaniKani API key'
           onChange={this.handleKeyChange} />
         <button className='btn btn-info' disabled={!this.state.buttonEnabled}>
+          <i className='fa fa-arrow-circle-down'></i>
           Fetch
         </button>
       </form>
