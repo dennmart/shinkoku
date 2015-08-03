@@ -112,6 +112,6 @@ gulp.task('distribute', function() {
   gulp.src('./index.html')
     .pipe(gulp.dest('./dist'));
 
-  gulp.src('./assets/wanikani-shinkoku.png')
+  gulp.src(['./assets/wanikani-shinkoku.png', './assets/favicon.ico'])
     .pipe(gulp.dest('./dist/assets'));
 });
