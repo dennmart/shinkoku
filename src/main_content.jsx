@@ -3,7 +3,7 @@ var React = require('react');
 module.exports = React.createClass({
   render: function() {
     if (this.props.errorMessage) {
-      var content = <div className='bg-danger wanikani-error-msg'>
+      var content = <div className='bg-danger bg-section'>
         <h3>Whoops! There was an error fetching your data from WaniKani.</h3>
         <p>The Crabigator says: <strong>{this.props.errorMessage}</strong></p>
     </div>;
@@ -19,10 +19,8 @@ module.exports = React.createClass({
       </div>;
     }
 
-    return <div>
-      <div className='col-md-12 text-center'>
-        {content}
-      </div>
-    </div>
+    return (<div className='col-md-12 text-center'>
+      {content}
+    </div>)
   }
 });
