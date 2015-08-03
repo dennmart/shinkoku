@@ -76,7 +76,7 @@ gulp.task('serve', function(done) {
 });
 
 gulp.task('sass', function () {
-  gulp.src('./assets/sass/**/*.scss')
+  gulp.src('./src/sass/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('application.css'))
     .pipe(gulp.dest('./assets'));
@@ -96,7 +96,7 @@ gulp.task('distribute', function() {
     .pipe(uglify())
     .pipe(gulp.dest('./dist/assets'));
 
-  gulp.src('./assets/sass/**/*.scss')
+  gulp.src('./src/sass/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('application.css'))
     .pipe(uglifycss())
