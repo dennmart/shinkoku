@@ -35,7 +35,7 @@ var notify = function(error) {
   notifier.notify({title: title, message: message});
 };
 
-var bundler = browserify({
+var bundler = watchify(browserify({
   entries: ['./src/app.jsx'],
   transform: [reactify],
   extensions: ['.jsx'],
@@ -43,10 +43,10 @@ var bundler = browserify({
   cache: {},
   packageCache: {},
   fullPaths: true
-});
+}));
 
 function bundle() {
-  return watchify(bundler)
+  return bundler
     .bundle()
     .on('error', notify)
     .pipe(source('application.js'))
@@ -89,8 +89,15 @@ gulp.task('watch', function () {
 });
 
 gulp.task('distribute', function() {
-  bundler
-    .bundle()
+  browserify({
+    entries: ['./src/app.jsx'],
+    transform: [reactify],
+    extensions: ['.jsx'],
+    debug: true,
+    cache: {},
+    packageCache: {},
+    fullPaths: true
+  }).bundle()
     .pipe(source('application.js'))
     .pipe(buffer())
     .pipe(uglify())
