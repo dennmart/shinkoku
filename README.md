@@ -2,6 +2,8 @@
 
 Shinkoku (Japanese, literally meaning *serious* or *severe*) is a single page app built using [React](http://facebook.github.io/react/) to fetch and display your current critical items from [WaniKani](https://www.wanikani.com/). Simply enter your WaniKani API key, which can be found in their [API documentation](https://www.wanikani.com/api) and you're good to go!
 
+To see Shinkoku in action, go to [http://dennmart.com/shinkoku/].
+
 ## Requirements
 
 The only requirements you must have installed are Node.js and NPM ([Installation instructions](https://docs.npmjs.com/getting-started/installing-node)).
