@@ -12,6 +12,15 @@
   },
   "license": "MIT",
   "dependencies": {
+    "jquery": "^2.1.4",
+    "node-notifier": "^4.2.3",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3",
+    "reactify": "^1.1.1",
+    "underscore": "^1.8.3",
+    "underscore.string": "^3.1.1"
+  },
+  "devDependencies": {
     "browserify": "^10.2.6",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
@@ -22,13 +31,6 @@
     "gulp-uglifycss": "^1.0.4",
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.3",
-    "jquery": "^2.1.4",
-    "node-notifier": "^4.2.3",
-    "react": "^0.13.3",
-    "react-router": "^0.13.3",
-    "reactify": "^1.1.1",
-    "underscore": "^1.8.3",
-    "underscore.string": "^3.1.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.3"
