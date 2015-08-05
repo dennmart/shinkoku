@@ -1,14 +1,32 @@
 var React = require('react');
+var Modal = require('boron/OutlineModal');
 var capitalize = require('underscore.string/capitalize');
 var prune = require('underscore.string/prune');
+var ItemModal = require('./item_modal');
 
 module.exports = React.createClass({
   render: function() {
+    var modal = (
+      <Modal ref='modal'>
+        <ItemModal {...this.props} />
+      </Modal>
+    )
     return (
-      <div className='col-md-4 item'>
-        {this.buildItem()}
+      <div>
+        <div className='col-md-4 item' onClick={this.showModal}>
+          {this.buildItem()}
+        </div>
+        {modal}
       </div>
     )
+  },
+
+  showModal: function(){
+    this.refs.modal.show();
+  },
+
+  hideModal: function(){
+    this.refs.modal.hide();
   },
 
   buildItem: function() {
