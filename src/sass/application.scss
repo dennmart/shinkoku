@@ -111,7 +111,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .clear-filters {
-  min-height: 20px;
+  min-height: 25px;
+}
+
+.items-total {
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 0;
+  font-size: 18px;
 }
 
 #search {

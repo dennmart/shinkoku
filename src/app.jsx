@@ -33,6 +33,3 @@ Router.run(routes, function (Handler, state) {
   var params = state.params;
   React.render(<Handler params={params} />, document.body);
 });
-
-// element = React.createElement(CriticalItems, null);
-// React.render(element, document.getElementById('main_container'));
