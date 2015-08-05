@@ -3,12 +3,14 @@ var React = require('react');
 module.exports = React.createClass({
   getInitialState: function() {
     return {
+      apiKey: this.props.apiKey,
       buttonEnabled: false
     };
   },
 
   componentDidMount: function() {
     React.findDOMNode(this.refs.searchInput).focus();
+    this.setState({ buttonEnabled: this.isValidApiKey(this.state.apiKey) });
   },
 
   isValidApiKey: function(apiKey) {
@@ -40,7 +42,8 @@ module.exports = React.createClass({
           type='text'
           className='form-control'
           placeholder='Please enter your WaniKani API key'
-          onChange={this.handleKeyChange} />
+          onChange={this.handleKeyChange}
+          value={this.state.apiKey} />
         <button className='btn btn-info' disabled={!this.state.buttonEnabled}>
           <i className='fa fa-arrow-circle-down'></i>
           Fetch

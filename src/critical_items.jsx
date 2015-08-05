@@ -1,4 +1,5 @@
 var React = require('react');
+var Navigation = require('react-router').Navigation;
 var $ = require('jquery');
 var _ = require('underscore');
 var SearchBar = require('./search_bar');
@@ -6,6 +7,8 @@ var MainContent = require('./main_content');
 var CriticalItemList = require('./critical_item_list');
 
 module.exports = React.createClass({
+  mixins: [Navigation],
+
   getInitialState: function() {
     return {
       apiKey: '',
@@ -24,8 +27,17 @@ module.exports = React.createClass({
       });
   },
 
+  componentDidMount: function() {
+    if (this.props.params.apiKey) {
+      var apiKey = this.props.params.apiKey;
+      this.setState({ apiKey: apiKey });
+      this.apiKeyChange(apiKey);
+    }
+  },
+
   apiKeyChange: function(apiKey) {
     if (apiKey) {
+      this.transitionTo('critical_items', { apiKey: apiKey });
       $.ajax({
         url: 'https://www.wanikani.com/api/user/' + apiKey + '/critical-items/80',
         cache: false,
@@ -68,7 +80,7 @@ module.exports = React.createClass({
       <div>
         <div className='container' id='search'>
           <div className='col-md-12 text-center'>
-            <SearchBar apiKeyChange={this.apiKeyChange} />
+            <SearchBar apiKey={this.props.params.apiKey} apiKeyChange={this.apiKeyChange} />
           </div>
         </div>
 
