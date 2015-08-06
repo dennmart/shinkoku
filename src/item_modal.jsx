@@ -1,19 +1,14 @@
 var React = require('react');
 var capitalize = require('underscore.string/capitalize');
+var WaniKaniItemMixin = require('./mixins/wanikani_item_mixin');
 
 module.exports = React.createClass({
+  mixins: [WaniKaniItemMixin],
+
   radicalInfo: function() {
-    var characterDisplay;
-
-    if (this.props.character == null) {
-      characterDisplay = (<img src={this.props.image} />);
-    } else {
-      characterDisplay = this.props.character;
-    }
-
     return (
       <div className='type-info'>
-        <div className={'character ' + this.props.type}>{characterDisplay}</div>
+        <div className={'character ' + this.props.type}>{this.radicalCharacterDisplay(this.props)}</div>
         <div className='meaning'>{capitalize(this.props.meaning.replace('-', ' '))}</div>
       </div>
     )
@@ -23,7 +18,7 @@ module.exports = React.createClass({
     return (
       <div className='type-info'>
         <div className={'character ' + this.props.type}>{this.props.character}</div>
-        <div className='reading'>{this.props[this.props.important_reading]}</div>
+        <div className='reading'>{this.importantMeaning(this.props)}</div>
         <div className='meaning'>{capitalize(this.props.meaning)}</div>
       </div>
     )
@@ -50,28 +45,13 @@ module.exports = React.createClass({
     };
   },
 
-  linkToWaniKani: function() {
-    if (this.props.type == 'radical') {
-      var link = 'https://www.wanikani.com/radicals/' + this.props.meaning;
-    } else {
-      var link = 'https://www.wanikani.com/' + this.props.type + '/' + this.props.character;
-    }
-
-    return (
-      <a href={link} target='_blank'>
-        View more information on WaniKani
-      </a>
-    )
-  },
-
   render: function() {
     return (
       <div className='item-modal'>
         {this.characterInfo()}
-
         <div className='level'>Level {this.props.level}</div>
         <div className='percentage'>{this.props.percentage}% Correct</div>
-        <div className='wanikani-link'>{this.linkToWaniKani()}</div>
+        <div className='wanikani-link'>{this.linkToWaniKani(this.props)}</div>
       </div>
     )
   }

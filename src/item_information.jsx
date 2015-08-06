@@ -3,8 +3,11 @@ var Modal = require('boron/OutlineModal');
 var capitalize = require('underscore.string/capitalize');
 var prune = require('underscore.string/prune');
 var ItemModal = require('./item_modal');
+var WaniKaniItemMixin = require('./mixins/wanikani_item_mixin');
 
 module.exports = React.createClass({
+  mixins: [WaniKaniItemMixin],
+
   render: function() {
     var modal = (
       <Modal ref='modal'>
@@ -41,17 +44,9 @@ module.exports = React.createClass({
   },
 
   radicalInfo: function() {
-    var characterDisplay;
-
-    if (this.props.character == null) {
-      characterDisplay = (<img src={this.props.image} />);
-    } else {
-      characterDisplay = this.props.character;
-    }
-
     return (
       <div className={'item-container ' + this.props.type}>
-        <div className='character'>{characterDisplay}</div>
+        <div className='character'>{this.radicalCharacterDisplay(this.props)}</div>
         <div className='meaning'>{capitalize(this.props.meaning.replace('-', ' '))}</div>
       </div>
     )
@@ -61,7 +56,7 @@ module.exports = React.createClass({
     return (
       <div className={'item-container ' + this.props.type}>
         <div className='character'>{this.props.character}</div>
-        <div className='reading'>{this.props[this.props.important_reading]}</div>
+        <div className='reading'>{this.importantMeaning(this.props)}</div>
         <div className='meaning'>{capitalize(this.props.meaning)}</div>
       </div>
     )
