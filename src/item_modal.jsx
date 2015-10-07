@@ -1,20 +1,17 @@
-var React = require('react');
-var capitalize = require('underscore.string/capitalize');
-var WaniKaniItemMixin = require('./mixins/wanikani_item_mixin');
+import React from 'react';
+import capitalize from 'underscore.string/capitalize';
 
-module.exports = React.createClass({
-  mixins: [WaniKaniItemMixin],
-
-  radicalInfo: function() {
+class ItemModal extends React.Component {
+  radicalInfo() {
     return (
       <div className='type-info'>
         <div className={'character ' + this.props.type}>{this.radicalCharacterDisplay(this.props)}</div>
         <div className='meaning'>{capitalize(this.props.meaning.replace('-', ' '))}</div>
       </div>
     )
-  },
+  }
 
-  kanjiInfo: function() {
+  kanjiInfo() {
     return (
       <div className='type-info'>
         <div className={'character ' + this.props.type}>{this.props.character}</div>
@@ -22,9 +19,9 @@ module.exports = React.createClass({
         <div className='meaning'>{capitalize(this.props.meaning)}</div>
       </div>
     )
-  },
+  }
 
-  vocabularyInfo: function() {
+  vocabularyInfo() {
     return (
       <div className='type-info'>
         <div className={'character ' + this.props.type}>{this.props.character}</div>
@@ -32,9 +29,9 @@ module.exports = React.createClass({
         <div className='meaning'>{capitalize(this.props.meaning)}</div>
       </div>
     )
-  },
+  }
 
-  characterInfo: function() {
+  characterInfo() {
     switch (this.props.type) {
       case 'radical':
         return this.radicalInfo();
@@ -43,9 +40,35 @@ module.exports = React.createClass({
       case 'vocabulary':
         return this.vocabularyInfo();
     };
-  },
+  }
 
-  render: function() {
+  radicalCharacterDisplay(item) {
+    if (item.character == null) {
+      return <img src={item.image} />;
+    } else {
+      return item.character;
+    }
+  }
+
+  importantMeaning(item) {
+    return item[item.important_reading];
+  }
+
+  linkToWaniKani(item) {
+    if (item.type == 'radical') {
+      var link = 'https://www.wanikani.com/radicals/' + item.meaning;
+    } else {
+      var link = 'https://www.wanikani.com/' + item.type + '/' + item.character;
+    }
+
+    return (
+      <a href={link} target='_blank'>
+        View more information on WaniKani
+      </a>
+    )
+  }
+
+  render() {
     return (
       <div className='item-modal'>
         {this.characterInfo()}
@@ -55,4 +78,6 @@ module.exports = React.createClass({
       </div>
     )
   }
-});
+}
+
+export default ItemModal;

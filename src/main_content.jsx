@@ -1,7 +1,7 @@
-var React = require('react');
+import React from 'react';
 
-module.exports = React.createClass({
-  render: function() {
+class MainContent extends React.Component {
+  render() {
     if (this.props.errorMessage) {
       var content = <div className='bg-danger bg-section'>
         <h3>Whoops! There was an error fetching your data from WaniKani.</h3>
@@ -23,4 +23,6 @@ module.exports = React.createClass({
       {content}
     </div>)
   }
-});
+}
+
+export default MainContent;

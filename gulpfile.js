@@ -3,7 +3,6 @@ var gutil = require('gulp-util');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var watchify = require('watchify');
-var reactify = require('reactify');
 var notifier = require('node-notifier');
 var server = require('gulp-server-livereload');
 var concat = require('gulp-concat');
@@ -12,6 +11,7 @@ var watch = require('gulp-watch');
 var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var buffer = require('vinyl-buffer');
+var babelify = require("babelify");
 
 var notify = function(error) {
   var message = 'In: ';
@@ -37,7 +37,7 @@ var notify = function(error) {
 
 var bundler = watchify(browserify({
   entries: ['./src/app.jsx'],
-  transform: [reactify],
+  transform: [babelify],
   extensions: ['.jsx'],
   debug: true,
   cache: {},
@@ -91,7 +91,7 @@ gulp.task('watch', function () {
 gulp.task('distribute', function() {
   browserify({
     entries: ['./src/app.jsx'],
-    transform: [reactify],
+    transform: [babelify],
     extensions: ['.jsx'],
     debug: true,
     cache: {},

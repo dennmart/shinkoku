@@ -1,48 +1,47 @@
-var React = require('react');
-var Navigation = require('react-router').Navigation;
-var $ = require('jquery');
-var _ = require('underscore');
-var SearchBar = require('./search_bar');
-var MainContent = require('./main_content');
-var CriticalItemList = require('./critical_item_list');
+import React from 'react';
+import $ from 'jquery';
+import _ from 'underscore';
 
-module.exports = React.createClass({
-  mixins: [Navigation],
+import SearchBar from './search_bar';
+import MainContent from './main_content';
+import CriticalItemList from './critical_item_list';
 
-  getInitialState: function() {
-    return {
+class CriticalItems extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       apiKey: '',
       criticalItems: [],
       errorMessage: null
-    }
-  },
+    };
+    this.apiKeyChange = this.apiKeyChange.bind(this);
+  }
 
-  componentWillMount: function() {
+  componentWillMount() {
     $(document)
-      .ajaxStart(function () {
+      .ajaxStart(() => {
         $('#loading').show();
       })
-      .ajaxStop(function () {
+      .ajaxStop(() => {
         $('#loading').hide();
       });
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     if (this.props.params.apiKey) {
       var apiKey = this.props.params.apiKey;
       this.setState({ apiKey: apiKey });
       this.apiKeyChange(apiKey);
     }
-  },
+  }
 
-  apiKeyChange: function(apiKey) {
+  apiKeyChange(apiKey) {
     if (apiKey) {
-      this.transitionTo('critical_items', { apiKey: apiKey });
       $.ajax({
         url: 'https://www.wanikani.com/api/user/' + apiKey + '/critical-items/80',
         cache: false,
         dataType: 'jsonp',
-        success: function(data, textStatus, jqXHR) {
+        success: (data, textStatus, jqXHR) => {
           if (data.error) {
             this.setState({
               apiKey: apiKey,
@@ -56,7 +55,7 @@ module.exports = React.createClass({
             });
           }
         }.bind(this),
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: (jqXHR, textStatus, errorThrown) => {
           this.setState({
             errorMessage: "There was an error making the request to WaniKani. Check your API key and try again."
           });
@@ -65,9 +64,9 @@ module.exports = React.createClass({
     } else {
       this.replaceState(this.getInitialState());
     }
-  },
+  }
 
-  render: function() {
+  render() {
     if (this.state.errorMessage || this.state.apiKey == '') {
       var content = <MainContent errorMessage={this.state.errorMessage} />;
     } else {
@@ -91,4 +90,6 @@ module.exports = React.createClass({
       </div>
     )
   }
-});
+}
+
+export default CriticalItems;

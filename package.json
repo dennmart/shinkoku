@@ -18,11 +18,11 @@
     "pluralize": "^1.1.4",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
-    "reactify": "^1.1.1",
     "underscore": "^1.8.3",
     "underscore.string": "^3.1.1"
   },
   "devDependencies": {
+    "babelify": "^6.3.0",
     "browserify": "^10.2.6",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",

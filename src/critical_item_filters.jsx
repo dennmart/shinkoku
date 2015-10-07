@@ -1,12 +1,17 @@
-var React = require('react');
-var _ = require('underscore');
+import React from 'react';
+import _ from 'underscore';
 
-module.exports = React.createClass({
-  isFilteredBy: function(type) {
+class CriticalItemFilters extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+  }
+
+  isFilteredBy(type) {
     return _.contains(this.props.filterTypes, type);
-  },
+  }
 
-  handleFilterChange: function(event) {
+  handleFilterChange(event) {
     var filters = _.clone(this.props.filterTypes);
 
     if (event.target.checked) {
@@ -16,9 +21,9 @@ module.exports = React.createClass({
     }
 
     this.props.handleFilterChange(filters);
-  },
+  }
 
-  render: function() {
+  render() {
     if (this.props.filterTypes.length > 0) {
       var clearFilterLink = <a onClick={this.props.handleClearFilters}>Clear Filters</a>;
     }
@@ -45,4 +50,6 @@ module.exports = React.createClass({
       </div>
     </div>
   }
-})
+}
+
+export default CriticalItemFilters;

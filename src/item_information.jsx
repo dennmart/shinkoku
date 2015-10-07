@@ -1,14 +1,77 @@
-var React = require('react');
-var Modal = require('boron/OutlineModal');
-var capitalize = require('underscore.string/capitalize');
-var prune = require('underscore.string/prune');
-var ItemModal = require('./item_modal');
-var WaniKaniItemMixin = require('./mixins/wanikani_item_mixin');
+import React from 'react';
+import Modal from 'boron/OutlineModal';
+import capitalize from 'underscore.string/capitalize';
+import prune from 'underscore.string/prune';
+import ItemModal from './item_modal';
 
-module.exports = React.createClass({
-  mixins: [WaniKaniItemMixin],
+class ItemInformation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+  }
 
-  render: function() {
+  showModal() {
+    this.refs.modal.show();
+  }
+
+  hideModal() {
+    this.refs.modal.hide();
+  }
+
+  buildItem() {
+    switch (this.props.type) {
+      case 'radical':
+        return this.radicalInfo();
+      case 'kanji':
+        return this.kanjiInfo();
+      case 'vocabulary':
+        return this.vocabularyInfo();
+    };
+  }
+
+  radicalInfo() {
+    return (
+      <div className={'item-container ' + this.props.type}>
+        <div className='character'>{this.radicalCharacterDisplay(this.props)}</div>
+        <div className='meaning'>{capitalize(this.props.meaning.replace('-', ' '))}</div>
+      </div>
+    )
+  }
+
+  kanjiInfo() {
+    return (
+      <div className={'item-container ' + this.props.type}>
+        <div className='character'>{this.props.character}</div>
+        <div className='reading'>{this.importantMeaning(this.props)}</div>
+        <div className='meaning'>{capitalize(this.props.meaning)}</div>
+      </div>
+    )
+  }
+
+  vocabularyInfo() {
+    return (
+      <div className={'item-container ' + this.props.type}>
+        <div className='character'>{this.props.character}</div>
+        <div className='reading'>{this.props.kana}</div>
+        <div className='meaning'>{prune(capitalize(this.props.meaning), 80)}</div>
+      </div>
+    )
+  }
+
+  radicalCharacterDisplay(item) {
+    if (item.character == null) {
+      return <img src={item.image} />;
+    } else {
+      return item.character;
+    }
+  }
+
+  importantMeaning(item) {
+    return item[item.important_reading];
+  }
+
+  render() {
     var modal = (
       <Modal ref='modal'>
         <ItemModal {...this.props} />
@@ -22,53 +85,7 @@ module.exports = React.createClass({
         {modal}
       </div>
     )
-  },
-
-  showModal: function(){
-    this.refs.modal.show();
-  },
-
-  hideModal: function(){
-    this.refs.modal.hide();
-  },
-
-  buildItem: function() {
-    switch (this.props.type) {
-      case 'radical':
-        return this.radicalInfo();
-      case 'kanji':
-        return this.kanjiInfo();
-      case 'vocabulary':
-        return this.vocabularyInfo();
-    };
-  },
-
-  radicalInfo: function() {
-    return (
-      <div className={'item-container ' + this.props.type}>
-        <div className='character'>{this.radicalCharacterDisplay(this.props)}</div>
-        <div className='meaning'>{capitalize(this.props.meaning.replace('-', ' '))}</div>
-      </div>
-    )
-  },
-
-  kanjiInfo: function() {
-    return (
-      <div className={'item-container ' + this.props.type}>
-        <div className='character'>{this.props.character}</div>
-        <div className='reading'>{this.importantMeaning(this.props)}</div>
-        <div className='meaning'>{capitalize(this.props.meaning)}</div>
-      </div>
-    )
-  },
-
-  vocabularyInfo: function() {
-    return (
-      <div className={'item-container ' + this.props.type}>
-        <div className='character'>{this.props.character}</div>
-        <div className='reading'>{this.props.kana}</div>
-        <div className='meaning'>{prune(capitalize(this.props.meaning), 80)}</div>
-      </div>
-    )
   }
-});
+}
+
+export default ItemInformation;

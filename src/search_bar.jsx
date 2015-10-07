@@ -1,40 +1,43 @@
-var React = require('react');
+import React from 'react';
 
-module.exports = React.createClass({
-  getInitialState: function() {
-    return {
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       apiKey: this.props.apiKey,
       buttonEnabled: false
     };
-  },
+    this.handleKeyChange = this.handleKeyChange.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     React.findDOMNode(this.refs.searchInput).focus();
     this.setState({ buttonEnabled: this.isValidApiKey(this.state.apiKey) });
-  },
+  }
 
-  isValidApiKey: function(apiKey) {
-    regExp = /^[a-z0-9]{32}$/;
+  isValidApiKey(apiKey) {
+    var regExp = /^[a-z0-9]{32}$/;
     return regExp.test(apiKey);
-  },
+  }
 
-  handleKeyChange: function(event) {
+  handleKeyChange(event) {
     this.setState({
       apiKey: event.target.value,
       buttonEnabled: this.isValidApiKey(event.target.value)
     });
-  },
+  }
 
-  handleOnSubmit: function(event) {
+  handleOnSubmit(event) {
     event.preventDefault();
 
     var apiKey = this.state.apiKey;
     if (this.isValidApiKey(apiKey)) {
       this.props.apiKeyChange(apiKey);
     }
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <form id='search' className='form-inline' onSubmit={this.handleOnSubmit}>
         <input
@@ -51,4 +54,6 @@ module.exports = React.createClass({
       </form>
     )
   }
-});
+}
+
+export default SearchBar;

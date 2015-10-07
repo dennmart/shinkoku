@@ -1,25 +1,27 @@
-var React = require('react');
-var _ = require('underscore');
-var pluralize = require('pluralize');
-var ItemInformation = require('./item_information');
-var CriticalItemFilters = require('./critical_item_filters');
+import React from 'react';
+import _ from 'underscore';
+import pluralize from 'pluralize';
 
-module.exports = React.createClass({
-  getInitialState: function() {
-    return {
-      filterTypes: []
-    }
-  },
+import ItemInformation from './item_information';
+import CriticalItemFilters from './critical_item_filters';
 
-  handleFilterChange: function(filters) {
+class CriticalItemList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { filterTypes: [] };
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.clearFilters = this.clearFilters.bind(this);
+  }
+
+  handleFilterChange(filters) {
     this.setState({ filterTypes: filters });
-  },
+  }
 
-  clearFilters: function() {
+  clearFilters() {
     this.setState({ filterTypes: [] });
-  },
+  }
 
-  render: function() {
+  render() {
     if (this.props.criticalItems.length > 0) {
       var filterTypeOptions = <CriticalItemFilters
         filterTypes={this.state.filterTypes}
@@ -28,7 +30,7 @@ module.exports = React.createClass({
 
       var _this = this;
       var itemCount = 0;
-      var itemList = this.props.criticalItems.map(function(item, index) {
+      var itemList = this.props.criticalItems.map((item, index) => {
         if (_this.state.filterTypes.length == 0 || _.contains(_this.state.filterTypes, item.type)) {
           itemCount++;
           return <ItemInformation key={index} {...item} />;
@@ -57,4 +59,6 @@ module.exports = React.createClass({
       </div>
     )
   }
-});
+}
+
+export default CriticalItemList;

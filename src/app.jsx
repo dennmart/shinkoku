@@ -1,12 +1,13 @@
-var React = require('react');
-var Router = require('react-router');
+import React from 'react';
+import Router from 'react-router';
+import CriticalItems from './critical_items';
+
 var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
-var CriticalItems = require('./critical_items');
 
-var App = React.createClass({
-  render: function () {
+class App extends React.Component {
+  render() {
     return (
       <div>
         <div className='row' id='header'>
@@ -20,7 +21,7 @@ var App = React.createClass({
       </div>
     );
   }
-});
+}
 
 var routes = (
   <Route name='app' path='/' handler={App}>
