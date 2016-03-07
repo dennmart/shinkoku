@@ -37,6 +37,8 @@ class CriticalItems extends React.Component {
 
   apiKeyChange(apiKey) {
     if (apiKey) {
+      this.context.router.push(apiKey);
+
       $.ajax({
         url: 'https://www.wanikani.com/api/user/' + apiKey + '/critical-items/80',
         cache: false,
@@ -91,5 +93,7 @@ class CriticalItems extends React.Component {
     )
   }
 }
+
+CriticalItems.contextTypes = { router: React.PropTypes.object.isRequired };
 
 export default CriticalItems;
