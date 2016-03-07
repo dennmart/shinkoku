@@ -8,15 +8,10 @@ class ItemInformation extends React.Component {
   constructor(props) {
     super(props);
     this.showModal = this.showModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
   }
 
   showModal() {
     this.refs.modal.show();
-  }
-
-  hideModal() {
-    this.refs.modal.hide();
   }
 
   buildItem() {

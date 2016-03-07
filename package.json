@@ -12,12 +12,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "boron": "^0.1.2",
+    "boron": "^0.2.3",
     "jquery": "^2.1.4",
     "node-notifier": "^4.2.3",
     "pluralize": "^1.1.4",
-    "react": "^0.13.3",
-    "react-router": "^0.13.3",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^1.0.3",
     "underscore": "^1.8.3",
     "underscore.string": "^3.1.1"
   },

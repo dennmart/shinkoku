@@ -1,10 +1,7 @@
 import React from 'react';
-import Router from 'react-router';
+import ReactDOM from 'react-dom';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import CriticalItems from './critical_items';
-
-var DefaultRoute = Router.DefaultRoute;
-var Route = Router.Route;
-var RouteHandler = Router.RouteHandler;
 
 class App extends React.Component {
   render() {
@@ -16,7 +13,7 @@ class App extends React.Component {
           </div>
         </div>
         <div className='container' id='main_container'>
-          <RouteHandler />
+          {this.props.children}
         </div>
       </div>
     );
@@ -24,13 +21,10 @@ class App extends React.Component {
 }
 
 var routes = (
-  <Route name='app' path='/' handler={App}>
-    <Route name="critical_items" path=':apiKey' handler={CriticalItems}/>
-    <DefaultRoute handler={CriticalItems}/>
+  <Route path='/' component={App}>
+    <IndexRoute component={CriticalItems}/>
+    <Route path=':apiKey' component={CriticalItems}/>
   </Route>
 );
 
-Router.run(routes, function (Handler, state) {
-  var params = state.params;
-  React.render(<Handler params={params} />, document.body);
-});
+ReactDOM.render(<Router history={hashHistory}>{routes}</Router>, document.getElementById('container'));

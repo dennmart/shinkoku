@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class SearchBar extends React.Component {
   }
 
   componentDidMount() {
-    React.findDOMNode(this.refs.searchInput).focus();
+    ReactDOM.findDOMNode(this.refs.searchInput).focus();
     this.setState({ buttonEnabled: this.isValidApiKey(this.state.apiKey) });
   }
 
