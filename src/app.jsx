@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import CriticalItems from './critical_items';
 
 class App extends React.Component {
@@ -21,10 +21,10 @@ class App extends React.Component {
 }
 
 var routes = (
-  <Route path='/' component={App}>
+  <Route path='/shinkoku' component={App}>
     <IndexRoute component={CriticalItems}/>
     <Route path=':apiKey' component={CriticalItems}/>
   </Route>
 );
 
-ReactDOM.render(<Router history={hashHistory}>{routes}</Router>, document.getElementById('container'));
+ReactDOM.render(<Router history={browserHistory}>{routes}</Router>, document.getElementById('container'));
