@@ -21,7 +21,7 @@ class App extends React.Component {
 }
 
 var routes = (
-  <Route path='/shinkoku' component={App}>
+  <Route path='/' component={App}>
     <IndexRoute component={CriticalItems}/>
     <Route path=':apiKey' component={CriticalItems}/>
   </Route>
