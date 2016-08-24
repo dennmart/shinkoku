@@ -5,7 +5,7 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiKey: this.props.apiKey,
+      apiKey: this.props.apiKey || '',
       buttonEnabled: false
     };
     this.handleKeyChange = this.handleKeyChange.bind(this);
