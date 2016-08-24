@@ -56,12 +56,12 @@ class CriticalItems extends React.Component {
               criticalItems: data.requested_information
             });
           }
-        }.bind(this),
+        },
         error: (jqXHR, textStatus, errorThrown) => {
           this.setState({
             errorMessage: "There was an error making the request to WaniKani. Check your API key and try again."
           });
-        }.bind(this)
+        }
       });
     } else {
       this.replaceState(this.getInitialState());

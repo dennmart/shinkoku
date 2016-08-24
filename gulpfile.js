@@ -37,7 +37,7 @@ var notify = function(error) {
 
 var bundler = watchify(browserify({
   entries: ['./src/app.jsx'],
-  transform: [babelify],
+  transform: ['babelify', { presets: ['es2015', 'react'] }],
   extensions: ['.jsx'],
   debug: true,
   cache: {},
@@ -91,13 +91,13 @@ gulp.task('watch', function () {
 gulp.task('distribute', function() {
   browserify({
     entries: ['./src/app.jsx'],
-    transform: [babelify],
     extensions: ['.jsx'],
     debug: true,
     cache: {},
     packageCache: {},
     fullPaths: true
-  }).bundle()
+  }).transform('babelify', { presets: ['es2015', 'react', 'stage-0'] })
+    .bundle()
     .pipe(source('application.js'))
     .pipe(buffer())
     .pipe(uglify())
