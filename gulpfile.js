@@ -89,6 +89,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('distribute', function() {
+  process.env.NODE_ENV = 'production';
   browserify({
     entries: ['./src/app.jsx'],
     extensions: ['.jsx'],
