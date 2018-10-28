@@ -3,6 +3,11 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: './src/app.jsx',
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    historyApiFallback: true
+  },
   output: {
     path: path.resolve(__dirname, './dist/assets')
   },
