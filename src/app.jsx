@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import CriticalItems from './critical_items';
 
+import './sass/application.scss';
+
 class App extends React.Component {
   render() {
     return (
