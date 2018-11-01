@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'underscore';
+import _ from 'lodash';
 
 class CriticalItemFilters extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class CriticalItemFilters extends React.Component {
   }
 
   isFilteredBy(type) {
-    return _.contains(this.props.filterTypes, type);
+    return _.includes(this.props.filterTypes, type);
   }
 
   handleFilterChange(event) {

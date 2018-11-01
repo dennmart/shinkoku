@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'underscore';
+import _ from 'lodash';
 import pluralize from 'pluralize';
 
 import ItemInformation from './item_information';
@@ -31,7 +31,7 @@ class CriticalItemList extends React.Component {
       var _this = this;
       var itemCount = 0;
       var itemList = this.props.criticalItems.map((item, index) => {
-        if (_this.state.filterTypes.length == 0 || _.contains(_this.state.filterTypes, item.type)) {
+        if (_this.state.filterTypes.length == 0 || _.includes(_this.state.filterTypes, item.type)) {
           itemCount++;
           return <ItemInformation key={index} {...item} />;
         }

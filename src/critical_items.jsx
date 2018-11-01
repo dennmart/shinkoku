@@ -1,6 +1,5 @@
 import React from 'react';
 import $ from 'jquery';
-import _ from 'underscore';
 
 import SearchBar from './search_bar';
 import MainContent from './main_content';
