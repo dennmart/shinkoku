@@ -1,5 +1,7 @@
 import React from 'react';
-import _ from 'lodash';
+import includes from 'lodash/includes';
+import clone from 'lodash/clone';
+import reject from 'lodash/reject';
 
 class CriticalItemFilters extends React.Component {
   constructor(props) {
@@ -8,16 +10,16 @@ class CriticalItemFilters extends React.Component {
   }
 
   isFilteredBy(type) {
-    return _.includes(this.props.filterTypes, type);
+    return includes(this.props.filterTypes, type);
   }
 
   handleFilterChange(event) {
-    var filters = _.clone(this.props.filterTypes);
+    var filters = clone(this.props.filterTypes);
 
     if (event.target.checked) {
       filters.push(event.target.value);
     } else {
-      filters = _.reject(filters, function(filter) { return filter == event.target.value });
+      filters = reject(filters, filter => filter == event.target.value);
     }
 
     this.props.handleFilterChange(filters);
