@@ -2,7 +2,7 @@
 
 Shinkoku (Japanese, literally meaning *serious* or *severe*) is a single page app built using [React](http://facebook.github.io/react/) to fetch and display your current critical items from [WaniKani](https://www.wanikani.com/). Simply enter your WaniKani API key, which can be found in their [API documentation](https://www.wanikani.com/api) and you're good to go!
 
-To see Shinkoku in action, go to http://dennmart.com/shinkoku/.
+To see Shinkoku in action, go to https://shinkoku.dennmart.com/.
 
 ## Requirements
 
@@ -11,7 +11,14 @@ The only requirements you must have installed are Node.js and NPM ([Installation
 ## Development Setup
 
 * After installing Node.js and NPM, run `npm install` in the root directory to install all dependencies.
-* Use the included Gulpfile to start a local webserver and load the page by running `gulp`. This will load the page in a new browser tab, and will watch for any changes to .jsx or .scss files in the `/src` directory. If any files in the `/src` directory change, this task will automatically re-bundle the Javascript and CSS and reload the page.
+* Once all dependencies are installed, run `npm run dev` in the root directory to start up [webpack-dev-server] and run the application for local development. This will watch for any changes to .jsx or .scss files in the `/src` directory. If any files in the `/src` directory change, this task will automatically re-bundle the Javascript and CSS and reload the page.
+* `npm run dev` will start two services:
+  * The Shinkoku app will run in http://localhost:8080/.
+  * The [Webpack Bundle Analyzer] will run in http://localhost:8888.
+
+## Production Build
+
+* To generate files suitable for a production environment, run `npm run build` to build the files to the `/dist` directory.
 
 ## Contribute
 
