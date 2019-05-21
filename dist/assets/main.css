@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
   .item .character {
     font-size: 60px;
     font-weight: bold;
-    font-family: "Meiryo", "Hiragino Kaku Gothic Pro", "\30D2\30E9\30AE\30CE\89D2\30B4   Pro W3", "\30E1\30A4\30EA\30AA", "Osaka", "MS PGothic", "\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF", sans-serif; }
+    font-family: "Meiryo", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", "Osaka", "MS PGothic", "ＭＳ Ｐゴシック", sans-serif; }
   .item .reading {
     font-size: 20px;
     font-weight: bold; }
@@ -108,7 +108,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #FFF;
     font-size: 60px;
     font-weight: bold;
-    font-family: "Meiryo", "Hiragino Kaku Gothic Pro", "\30D2\30E9\30AE\30CE\89D2\30B4   Pro W3", "\30E1\30A4\30EA\30AA", "Osaka", "MS PGothic", "\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF", sans-serif; }
+    font-family: "Meiryo", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", "Osaka", "MS PGothic", "ＭＳ Ｐゴシック", sans-serif; }
   .item-modal .radical {
     background-color: #0093dd; }
   .item-modal .kanji {
