@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 class SearchBar extends React.Component {
@@ -14,12 +13,16 @@ class SearchBar extends React.Component {
 
     this.handleKeyChange = this.handleKeyChange.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    this.searchInputRef = React.createRef();
   }
 
   componentDidMount() {
     const { apiKey } = this.state;
 
-    ReactDOM.findDOMNode(this.refs.searchInput).focus();
+    if (!apiKey) {
+      this.searchInputRef.current.focus();
+    }
+
     this.setState({ buttonEnabled: this.isValidApiKey(apiKey) });
   }
 
@@ -54,7 +57,7 @@ class SearchBar extends React.Component {
     return (
       <form id="search" className="form-inline" onSubmit={this.handleOnSubmit}>
         <input
-          ref="searchInput"
+          ref={this.searchInputRef}
           type="text"
           className="form-control"
           placeholder="Please enter your WaniKani API key"
