@@ -20,7 +20,7 @@
     "prop-types": "^15.7.2",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
-    "react-router": "^2.7.0",
+    "react-router": "^3.2.0",
     "rodal": "^1.6.3",
     "underscore.string": "^3.3.4",
     "webpack-bundle-analyzer": "^3.3.2",
