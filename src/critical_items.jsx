@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import $ from 'jquery';
 
 import SearchBar from './search_bar';
@@ -11,7 +12,7 @@ class CriticalItems extends React.Component {
     this.state = {
       apiKey: '',
       criticalItems: [],
-      errorMessage: null
+      errorMessage: null,
     };
     this.apiKeyChange = this.apiKeyChange.bind(this);
   }
@@ -27,40 +28,45 @@ class CriticalItems extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.params.apiKey) {
-      var apiKey = this.props.params.apiKey;
-      this.setState({ apiKey: apiKey });
+    const { params } = this.props;
+
+    if (params.apiKey) {
+      const { apiKey } = params;
+      this.setState({ apiKey });
       this.apiKeyChange(apiKey);
     }
   }
 
   apiKeyChange(apiKey) {
+    const { router } = this.context;
+
     if (apiKey) {
-      this.context.router.push(apiKey);
+      router.push(apiKey);
 
       $.ajax({
-        url: 'https://www.wanikani.com/api/user/' + apiKey + '/critical-items/80',
+        url: `https://www.wanikani.com/api/user/${apiKey}/critical-items/80`,
         cache: false,
         dataType: 'jsonp',
-        success: (data, textStatus, jqXHR) => {
+        success: data => {
           if (data.error) {
             this.setState({
-              apiKey: apiKey,
-              errorMessage: data.error.message
+              apiKey,
+              errorMessage: data.error.message,
             });
           } else {
             this.setState({
-              apiKey: apiKey,
+              apiKey,
               errorMessage: null,
-              criticalItems: data.requested_information
+              criticalItems: data.requested_information,
             });
           }
         },
-        error: (jqXHR, textStatus, errorThrown) => {
+        error: () => {
           this.setState({
-            errorMessage: "There was an error making the request to WaniKani. Check your API key and try again."
+            errorMessage:
+              'There was an error making the request to WaniKani. Check your API key and try again.',
           });
-        }
+        },
       });
     } else {
       this.replaceState(this.getInitialState());
@@ -68,31 +74,47 @@ class CriticalItems extends React.Component {
   }
 
   render() {
-    if (this.state.errorMessage || this.state.apiKey == '') {
-      var content = <MainContent errorMessage={this.state.errorMessage} />;
+    const { params } = this.props;
+    const { errorMessage, apiKey, criticalItems, filterTypes } = this.state;
+    let content = null;
+
+    if (errorMessage || apiKey === '') {
+      content = <MainContent errorMessage={errorMessage} />;
     } else {
-      var content = <CriticalItemList
-        criticalItems={this.state.criticalItems}
-        filterTypes={this.state.filterTypes} />;
+      content = (
+        <CriticalItemList
+          criticalItems={criticalItems}
+          filterTypes={filterTypes}
+        />
+      );
     }
 
     return (
       <div>
-        <div className='container' id='search'>
-          <div className='col-md-12 text-center'>
-            <SearchBar apiKey={this.props.params.apiKey} apiKeyChange={this.apiKeyChange} />
+        <div className="container" id="search">
+          <div className="col-md-12 text-center">
+            <SearchBar
+              apiKey={params.apiKey}
+              apiKeyChange={this.apiKeyChange}
+            />
           </div>
         </div>
 
-        <div className='container' id='main_content'>
-          <div id='loading'><i className='fa fa-refresh fa-spin'></i></div>
+        <div className="container" id="main_content">
+          <div id="loading">
+            <i className="fa fa-refresh fa-spin" />
+          </div>
           {content}
         </div>
       </div>
-    )
+    );
   }
 }
 
-CriticalItems.contextTypes = { router: React.PropTypes.object.isRequired };
+CriticalItems.propTypes = {
+  params: PropTypes.object.isRequired,
+};
+
+CriticalItems.contextTypes = { router: PropTypes.object.isRequired };
 
 export default CriticalItems;

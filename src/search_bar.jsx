@@ -1,60 +1,82 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
+    const { apiKey } = this.props;
+
     this.state = {
-      apiKey: this.props.apiKey || '',
-      buttonEnabled: false
+      apiKey: apiKey || '',
+      buttonEnabled: false,
     };
+
     this.handleKeyChange = this.handleKeyChange.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
   componentDidMount() {
+    const { apiKey } = this.state;
+
     ReactDOM.findDOMNode(this.refs.searchInput).focus();
-    this.setState({ buttonEnabled: this.isValidApiKey(this.state.apiKey) });
+    this.setState({ buttonEnabled: this.isValidApiKey(apiKey) });
   }
 
-  isValidApiKey(apiKey) {
-    var regExp = /^[a-z0-9]{32}$/;
+  isValidApiKey() {
+    const { apiKey } = this.state;
+
+    const regExp = /^[a-z0-9]{32}$/;
     return regExp.test(apiKey);
   }
 
   handleKeyChange(event) {
     this.setState({
       apiKey: event.target.value,
-      buttonEnabled: this.isValidApiKey(event.target.value)
+      buttonEnabled: this.isValidApiKey(event.target.value),
     });
   }
 
   handleOnSubmit(event) {
     event.preventDefault();
 
-    var apiKey = this.state.apiKey;
-    if (this.isValidApiKey(apiKey)) {
-      this.props.apiKeyChange(apiKey);
+    const { apiKey } = this.state;
+    const { apiKeyChange } = this.props;
+
+    if (this.isValidApiKey()) {
+      apiKeyChange(apiKey);
     }
   }
 
   render() {
+    const { apiKey, buttonEnabled } = this.state;
+
     return (
-      <form id='search' className='form-inline' onSubmit={this.handleOnSubmit}>
+      <form id="search" className="form-inline" onSubmit={this.handleOnSubmit}>
         <input
-          ref='searchInput'
-          type='text'
-          className='form-control'
-          placeholder='Please enter your WaniKani API key'
+          ref="searchInput"
+          type="text"
+          className="form-control"
+          placeholder="Please enter your WaniKani API key"
           onChange={this.handleKeyChange}
-          value={this.state.apiKey} />
-        <button className='btn btn-info' disabled={!this.state.buttonEnabled}>
-          <i className='fa fa-arrow-circle-down'></i>
+          value={apiKey}
+        />
+        <button type="submit" className="btn btn-info" disabled={buttonEnabled}>
+          <i className="fa fa-arrow-circle-down" />
           Fetch
         </button>
       </form>
-    )
+    );
   }
 }
+
+SearchBar.propTypes = {
+  apiKey: PropTypes.string,
+  apiKeyChange: PropTypes.func.isRequired,
+};
+
+SearchBar.defaultProps = {
+  apiKey: '',
+};
 
 export default SearchBar;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import includes from 'lodash/includes';
 import pluralize from 'pluralize';
 
@@ -22,43 +23,63 @@ class CriticalItemList extends React.Component {
   }
 
   render() {
-    if (this.props.criticalItems.length > 0) {
-      var filterTypeOptions = <CriticalItemFilters
-        filterTypes={this.state.filterTypes}
-        handleFilterChange={this.handleFilterChange}
-        handleClearFilters={this.clearFilters} />;
+    const { criticalItems } = this.props;
+    const { filterTypes } = this.state;
 
-      var _this = this;
-      var itemCount = 0;
-      var itemList = this.props.criticalItems.map((item, index) => {
-        if (_this.state.filterTypes.length == 0 || includes(_this.state.filterTypes, item.type)) {
-          itemCount++;
-          return <ItemInformation key={index} {...item} />;
+    let filterTypeOptions = null;
+    let itemList = null;
+    let totalItems = null;
+
+    if (criticalItems.length > 0) {
+      filterTypeOptions = (
+        <CriticalItemFilters
+          filterTypes={filterTypes}
+          handleFilterChange={this.handleFilterChange}
+          handleClearFilters={this.clearFilters}
+        />
+      );
+
+      let itemCount = 0;
+      itemList = criticalItems.map(item => {
+        if (filterTypes.length === 0 || includes(filterTypes, item.type)) {
+          const itemKey = `${item.level}-${item.type}-${item.meaning}`;
+          itemCount += 1;
+          return <ItemInformation key={itemKey} {...item} />;
         }
+
+        return null;
       });
 
-      var totalItems = (
+      totalItems = (
         <div>
-          <p className='items-total text-center'>Showing {pluralize('item', itemCount, true)}</p>
+          <p className="items-total text-center">
+            Showing {pluralize('item', itemCount, true)}
+          </p>
         </div>
       );
     } else {
       itemList = (
-        <div className='bg-success bg-section'>
-          <h1 className='text-center'>You currently don't have any critical items.</h1>
-          <h1 className='text-center'>Keep up the good work!</h1>
+        <div className="bg-success bg-section">
+          <h1 className="text-center">
+            You currently don&apos;t have any critical items.
+          </h1>
+          <h1 className="text-center">Keep up the good work!</h1>
         </div>
-      )
+      );
     }
 
     return (
-      <div className='row'>
+      <div className="row">
         {totalItems}
         {filterTypeOptions}
         {itemList}
       </div>
-    )
+    );
   }
 }
+
+CriticalItemList.propTypes = {
+  criticalItems: PropTypes.array.isRequired,
+};
 
 export default CriticalItemList;
