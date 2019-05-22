@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
+import axios from 'axios';
 
 import SearchBar from './search_bar';
 import MainContent from './main_content';
@@ -17,16 +17,6 @@ class CriticalItems extends React.Component {
     this.apiKeyChange = this.apiKeyChange.bind(this);
   }
 
-  componentWillMount() {
-    $(document)
-      .ajaxStart(() => {
-        $('#loading').show();
-      })
-      .ajaxStop(() => {
-        $('#loading').hide();
-      });
-  }
-
   componentDidMount() {
     const { params } = this.props;
 
@@ -40,34 +30,55 @@ class CriticalItems extends React.Component {
   apiKeyChange(apiKey) {
     const { router } = this.context;
 
+    const loadingSpinner = document.getElementById('loading');
+
+    axios.interceptors.request.use(
+      config => {
+        loadingSpinner.style.display = 'block';
+        return config;
+      },
+      error => {
+        loadingSpinner.style.display = 'block';
+        return Promise.reject(error);
+      }
+    );
+
+    axios.interceptors.response.use(
+      response => {
+        loadingSpinner.style.display = 'none';
+        return response;
+      },
+      error => {
+        loadingSpinner.style.display = 'none';
+        return Promise.reject(error);
+      }
+    );
+
     if (apiKey) {
       router.push(apiKey);
 
-      $.ajax({
-        url: `https://www.wanikani.com/api/user/${apiKey}/critical-items/80`,
-        cache: false,
-        dataType: 'jsonp',
-        success: data => {
-          if (data.error) {
+      axios
+        .get(`https://www.wanikani.com/api/user/${apiKey}/critical-items/80`)
+        .then(response => {
+          if (response.data.error) {
             this.setState({
               apiKey,
-              errorMessage: data.error.message,
+              errorMessage: response.data.error.message,
             });
           } else {
             this.setState({
               apiKey,
               errorMessage: null,
-              criticalItems: data.requested_information,
+              criticalItems: response.data.requested_information,
             });
           }
-        },
-        error: () => {
+        })
+        .catch(() => {
           this.setState({
             errorMessage:
               'There was an error making the request to WaniKani. Check your API key and try again.',
           });
-        },
-      });
+        });
     } else {
       this.replaceState(this.getInitialState());
     }

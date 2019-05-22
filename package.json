@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "jquery": "^3.4.1",
+    "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "mini-css-extract-plugin": "^0.6.0",
     "pluralize": "^7.0.0",
