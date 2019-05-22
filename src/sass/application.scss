@@ -1,10 +1,12 @@
-$japanese-font: "Meiryo","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","メイリオ","Osaka","MS PGothic","ＭＳ Ｐゴシック",sans-serif;
+$japanese-font: 'Meiryo', 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3',
+  'メイリオ', 'Osaka', 'MS PGothic', 'ＭＳ Ｐゴシック', sans-serif;
 $radical-background: #0093dd;
 $kanji-background: #dd0093;
 $vocabulary-background: #9300dd;
 $character-size: 60px;
 
-html, body {
+html,
+body {
   min-height: 100%;
 }
 
@@ -13,11 +15,16 @@ html {
 }
 
 body {
-  background-color: #F0F8FF;
-  font-family: "Lato",sans-serif;
+  background-color: #f0f8ff;
+  font-family: 'Lato', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: bold;
 }
 
@@ -43,11 +50,11 @@ h1, h2, h3, h4, h5, h6 {
   top: 0;
   left: 0;
   display: none;
-  background: #FFF;
+  background: #fff;
   z-index: 10;
   text-align: center;
   vertical-align: bottom;
-  background-color: #F0F8FF;
+  background-color: #f0f8ff;
 
   i {
     margin: 20px auto 0;
@@ -56,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .item {
-  color: #FFF;
+  color: #fff;
   text-align: center;
   padding: 10px;
 
@@ -112,7 +119,6 @@ h1, h2, h3, h4, h5, h6 {
   .option {
     display: inline-block;
     margin: 0 5px;
-
   }
 }
 
@@ -139,7 +145,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .item-modal {
-  padding: 15px;
   text-align: center;
   font-size: 1.2em;
 
@@ -150,7 +155,7 @@ h1, h2, h3, h4, h5, h6 {
 
   .character {
     padding: 10px;
-    color: #FFF;
+    color: #fff;
     font-size: $character-size;
     font-weight: bold;
     font-family: $japanese-font;
@@ -179,9 +184,5 @@ h1, h2, h3, h4, h5, h6 {
 
   .meaning {
     font-size: 1.25em;
-  }
-
-  .level {
-
   }
 }

@@ -1,5 +1,5 @@
 const path = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 
@@ -10,11 +10,11 @@ module.exports = merge(common, {
     contentBase: path.resolve(__dirname, 'dist'),
     compress: true,
     historyApiFallback: true,
-    publicPath: '/assets'
+    publicPath: '/assets',
   },
   plugins: [
     new BundleAnalyzerPlugin({
-      openAnalyzer: false
-    })
-  ]
+      openAnalyzer: false,
+    }),
+  ],
 });

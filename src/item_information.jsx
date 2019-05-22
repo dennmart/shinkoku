@@ -1,18 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'boron/OutlineModal';
 import capitalize from 'underscore.string/capitalize';
 import prune from 'underscore.string/prune';
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
+
 import ItemModal from './item_modal';
 
 class ItemInformation extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { visible: false };
     this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
   showModal() {
-    this.refs.modal.show();
+    this.setState({ visible: true });
+  }
+
+  hideModal() {
+    this.setState({ visible: false });
   }
 
   buildItem() {
@@ -82,11 +90,25 @@ class ItemInformation extends React.Component {
   }
 
   render() {
+    const { visible } = this.state;
+    const customStyles = {
+      height: 'auto',
+      bottom: 'auto',
+      top: '50%',
+      transform: 'translateY(-50%)',
+    };
+
     const modal = (
-      <Modal ref="modal">
+      <Rodal
+        visible={visible}
+        onClose={this.hideModal}
+        showCloseButton={false}
+        customStyles={customStyles}
+      >
         <ItemModal {...this.props} />
-      </Modal>
+      </Rodal>
     );
+
     return (
       <div>
         <div
