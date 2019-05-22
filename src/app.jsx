@@ -1,36 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
 import CriticalItems from './critical_items';
 
-// eslint-disable-next-line react/prop-types
-const App = ({ children }) => {
+const App = () => {
   return (
-    <div>
-      <div className="row" id="header">
-        <div>
-          <img
-            src="assets/wanikani-shinkoku.png"
-            alt="WaniKani"
-            className="logo img-responsive center-block"
-          />
+    <BrowserRouter>
+      <div>
+        <div className="row" id="header">
+          <div>
+            <img
+              src="assets/wanikani-shinkoku.png"
+              alt="WaniKani"
+              className="logo img-responsive center-block"
+            />
+          </div>
+        </div>
+        <div className="container" id="main_container">
+          <Route path="/:apiKey?" component={CriticalItems} />
         </div>
       </div>
-      <div className="container" id="main_container">
-        {children}
-      </div>
-    </div>
+    </BrowserRouter>
   );
 };
 
-const routes = (
-  <Route path="/" component={App}>
-    <IndexRoute component={CriticalItems} />
-    <Route path=":apiKey" component={CriticalItems} />
-  </Route>
-);
-
-ReactDOM.render(
-  <Router history={browserHistory}>{routes}</Router>,
-  document.getElementById('container')
-);
+ReactDOM.render(<App />, document.getElementById('container'));

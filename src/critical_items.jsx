@@ -18,12 +18,11 @@ class CriticalItems extends React.Component {
   }
 
   componentDidMount() {
-    const { params } = this.props;
+    const { match } = this.props;
 
-    if (params.apiKey) {
-      const { apiKey } = params;
-      this.setState({ apiKey });
-      this.apiKeyChange(apiKey);
+    if (match.params.apiKey) {
+      this.setState({ apiKey: match.params.apiKey });
+      this.apiKeyChange(match.params.apiKey);
     }
   }
 
@@ -55,7 +54,7 @@ class CriticalItems extends React.Component {
     );
 
     if (apiKey) {
-      router.push(apiKey);
+      router.history.push(apiKey);
 
       axios
         .get(`https://www.wanikani.com/api/user/${apiKey}/critical-items/80`)
@@ -85,7 +84,7 @@ class CriticalItems extends React.Component {
   }
 
   render() {
-    const { params } = this.props;
+    const { match } = this.props;
     const { errorMessage, apiKey, criticalItems, filterTypes } = this.state;
     let content = null;
 
@@ -105,7 +104,7 @@ class CriticalItems extends React.Component {
         <div className="container" id="search">
           <div className="col-md-12 text-center">
             <SearchBar
-              apiKey={params.apiKey}
+              apiKey={match.params.apiKey}
               apiKeyChange={this.apiKeyChange}
             />
           </div>
@@ -123,7 +122,7 @@ class CriticalItems extends React.Component {
 }
 
 CriticalItems.propTypes = {
-  params: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 CriticalItems.contextTypes = { router: PropTypes.object.isRequired };
