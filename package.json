@@ -60,10 +60,13 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
+    "linters": {
+      "*.{js,jsx}": [
+        "eslint --fix",
+        "prettier --write",
+        "git add"
+      ]
+    },
+    "ignore": ["dist/**/*.js"]
   }
 }
