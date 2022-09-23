@@ -1,5 +1,11 @@
 # Shinkoku (深刻)
 
+## ⚠️  Note: This project is no longer maintained
+
+The Shinkoku app is based on the now-deprecated WaniKani API v1 and is no longer maintained. If you're interested in taking over this project and upgrade the application to work with the latest version of WaniKani's API, please send me a message on Twitter ([@dennmart](https://twitter.com/dennmart)).
+
+---
+
 Shinkoku (Japanese, literally meaning *serious* or *severe*) is a single page app built using [React](http://facebook.github.io/react/) to fetch and display your current critical items from [WaniKani](https://www.wanikani.com/). Simply enter your WaniKani API key, which can be found in their [API documentation](https://www.wanikani.com/api) and you're good to go!
 
 To see Shinkoku in action, go to https://shinkoku.dennmart.com/.
